@@ -6,7 +6,7 @@
       <span>{{data.res.Label}}</span>
     </div>
     <div fxFlex="10" fxLayoutAlign="center center">
-      <button mat-icon-button (click)="close()">
+      <button mat-icon-button aria-label="Fermer le panneau des prix" (click)="close()">
         <mat-icon>{{raised ? 'keyboard_arrow_down' : 'close'}}</mat-icon>
       </button>
     </div>
@@ -25,7 +25,7 @@
 
 
   <div fxLayoutAlign="center center" *ngIf="!raised">
-    <button mat-raised-button (click)="raised = true">
+    <button aria-label="Chercher sur Leboncoin" mat-raised-button (click)="raised = true">
       Chercher sur Leboncoin
     </button>
   </div>
@@ -109,7 +109,7 @@
 
     <div fxLayoutAlign="center center">
 
-      <button mat-raised-button (click)="search()">
+      <button aria-label="Lancer la recherche sur Leboncoin" mat-raised-button (click)="search()">
         Rechercher
       </button>
 
