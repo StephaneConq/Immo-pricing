@@ -1,0 +1,18 @@
+<div fxLayout="column" class="main-container">
+
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-icon-button (click)="_bottomSheetRef.dismiss()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="neighborhoods">
+
+    <section *ngFor="let res of data" (click)="_bottomSheetRef.dismiss(res)">
+      <mat-icon>place</mat-icon>
+      <span>{{res.Label}} - {{ (res.ApartmentPrice + res.HousePrice) / 2 }} €</span>
+    </section>
+
+  </div>
+
+</div>

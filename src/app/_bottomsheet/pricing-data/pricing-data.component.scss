@@ -1,0 +1,51 @@
+.main-container {
+  height: 25vh;
+
+  &.raised {
+    height: 75vh;
+  }
+
+  .label-container {
+
+    mat-icon {
+      margin-right: 5px;
+    }
+
+    span {
+      padding: 0 5px;
+      font-size: large;
+    }
+  }
+
+  .prices {
+    padding: 10px 0;
+
+    section {
+      margin: 10px 0;
+      align-items: center;
+
+      span {
+        vertical-align: super;
+      }
+
+      mat-icon {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+.search-container {
+
+  .types mat-checkbox {
+    margin: 5px 0;
+  }
+
+  .prices, .rooms, .surface {
+
+    mat-form-field {
+      width: 50%;
+      margin: 0 5px;
+    }
+  }
+}

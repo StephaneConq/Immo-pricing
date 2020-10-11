@@ -1,0 +1,16 @@
+<mat-form-field appearance="outline">
+  <mat-label>Rechercher</mat-label>
+  <input matInput
+         type="text"
+         autocomplete="off"
+         [matAutocomplete]="auto"
+         ngModel
+         (ngModelChange)="search($event)">
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of searchResults"
+                (click)="selectResult(option)"
+                [value]="option">
+      {{option.Display}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

@@ -1,0 +1,120 @@
+<div class="main-container" [ngClass]="{'raised': raised}">
+
+  <div fxLayoutAlign="center center" fxLayout="row">
+    <div fxFlex="90" fxLayoutAlign="start center" class="label-container">
+      <mat-icon>place</mat-icon>
+      <span>{{data.res.Label}}</span>
+    </div>
+    <div fxFlex="10" fxLayoutAlign="center center">
+      <button mat-icon-button (click)="close()">
+        <mat-icon>{{raised ? 'keyboard_arrow_down' : 'close'}}</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div fxLayout="column" class="prices">
+    <section fxLayout="row">
+      <mat-icon>business</mat-icon>
+      <span>Prix au mètre carré (Appartement) : {{data.res.ApartmentPrice}} €</span>
+    </section>
+    <section>
+      <mat-icon>house</mat-icon>
+      <span>Prix au mètre carré (Maison) : {{data.res.HousePrice}} €</span>
+    </section>
+  </div>
+
+
+  <div fxLayoutAlign="center center" *ngIf="!raised">
+    <button mat-raised-button (click)="raised = true">
+      Chercher sur Leboncoin
+    </button>
+  </div>
+
+  <div *ngIf="raised" class="search-container">
+    <mat-vertical-stepper #stepper>
+      <ng-template matStepperIcon="type">
+        <mat-icon>house</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="price">
+        <mat-icon>euro_symbol</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="rooms">
+        <mat-icon>weekend</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="surface">
+        <mat-icon>border_all</mat-icon>
+      </ng-template>
+
+      <mat-step label="Type de bien" state="type">
+
+        <div class="types" fxLayout="column" fxLayoutAlign="start space-around">
+          <mat-checkbox [(ngModel)]="model.types.appartment">
+            Appartements
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="model.types.house">
+            Maisons
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="model.types.terrain">
+            Terrains
+          </mat-checkbox>
+        </div>
+
+      </mat-step>
+      <mat-step label="Prix" state="price">
+
+        <div fxLayout="row" class="prices" fxLayoutAlign="space-around center">
+          <mat-form-field>
+            <mat-label>Prix min</mat-label>
+            <input matInput type="number" [(ngModel)]="model.price.min" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Prix max</mat-label>
+            <input matInput type="number" [(ngModel)]="model.price.max" />
+          </mat-form-field>
+        </div>
+
+      </mat-step>
+      <mat-step label="Pièces" state="rooms">
+
+        <div fxLayout="row" class="rooms" fxLayoutAlign="space-around center">
+          <mat-form-field>
+            <mat-label>Pièces min</mat-label>
+            <input matInput type="number" [(ngModel)]="model.rooms.min" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Pièces max</mat-label>
+            <input matInput type="number" [(ngModel)]="model.rooms.max" />
+          </mat-form-field>
+        </div>
+
+      </mat-step>
+      <mat-step label="Surface" state="surface">
+
+        <div fxLayout="row" class="surface" fxLayoutAlign="space-around center">
+          <mat-form-field>
+            <mat-label>Surface min</mat-label>
+            <input matInput type="number" [(ngModel)]="model.surface.min" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Surface max</mat-label>
+            <input matInput type="number" [(ngModel)]="model.surface.max" />
+          </mat-form-field>
+        </div>
+
+      </mat-step>
+    </mat-vertical-stepper>
+
+    <div fxLayoutAlign="center center">
+
+      <button mat-raised-button (click)="search()">
+        Rechercher
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
