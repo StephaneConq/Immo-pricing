@@ -135,7 +135,6 @@ export class AppComponent implements OnInit {
     res.Label = res.Label.length === 0 ? option.Display : res.Label;
     const results = await this.mapsService.reverseGeocode(res.Label);
     if (results.length === 0) {
-      console.log('option', option);
       if ('Meta' in option) {
         const zip = option.Meta.Zips.find(z => option.Display.includes(z));
         res.AddressComponent = {
@@ -144,6 +143,7 @@ export class AppComponent implements OnInit {
         };
       }
     } else {
+      console.log('results', results);
       res.AddressComponent = this.buildAddressComponent(results[0]);
     }
     this.bottomsheetIsOpened = true;
@@ -159,7 +159,7 @@ export class AppComponent implements OnInit {
           p.options = {};
           return p;
         });
-        this.findResultsByAddress(option);
+        this.findResultsByAddress(this.multipleResultsCurrent.option);
       }
     });
   }
@@ -174,21 +174,33 @@ export class AppComponent implements OnInit {
       this.bottomsheetIsOpened = false;
       if (selectedRes) {
         this.selectResult(selectedRes, option, BottomsheetCommand.PREVIOUS);
-        const polygon = this.polygons.find(p => p.data?.LocalityID === selectedRes.LocalityID);
-        if (polygon) {
-          polygon.options = {
-            fillColor: '#ff0000'
-          };
-          this.map.fitBounds(this.mapsService.getBounds(polygon.paths));
-        }
-      } else {
-        this.multipleResultsCurrent = {};
-        // this.polygons = [];
+        this.selectPolygon(selectedRes);
       }
     });
   }
 
+  selectPolygon(selectedRes: PriceResult) {
+    const polygon = this.polygons.find(p => p.data?.LocalityID === selectedRes.LocalityID);
+    if (polygon) {
+      polygon.options = {
+        fillColor: '#ff0000'
+      };
+      this.map.fitBounds(this.mapsService.getBounds(polygon.paths));
+    }
+  }
+
+  clickOnPolygon(polygon: Polygon) {
+    for (let i = 0; i < this.polygons.length; i++) {
+      const tmp = {...this.polygons[i]};
+      tmp.options = {};
+      this.polygons[i] = {...tmp};
+    }
+    this.selectPolygon(polygon.data);
+    this.selectResult(polygon.data, this.multipleResultsCurrent.option, BottomsheetCommand.PREVIOUS);
+  }
+
   buildAddressComponent(geocodeResult: google.maps.GeocoderResult) {
+    console.log('geocodeResult', geocodeResult);
     return {
       postalCode: geocodeResult.address_components.find(c => c.types.indexOf('postal_code') > -1).long_name,
       city: geocodeResult.address_components.find(c => c.types.indexOf('locality') > -1).long_name,
@@ -205,8 +217,4 @@ export class AppComponent implements OnInit {
         return 4;
     }
   }
-
-  /*get bottomsheetIsOpened() {
-    return this.bottomSheet.
-  }*/
 }
