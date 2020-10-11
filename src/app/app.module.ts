@@ -8,8 +8,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {GoogleMapsModule} from "@angular/google-maps";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {ApiInterceptor} from "./_interceptors/api-interceptor";
+import {HttpClientModule} from "@angular/common/http";
 import { SearchComponent } from './_components/search/search.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PricingDataComponent } from './_bottomsheet/pricing-data/pricing-data.component';
@@ -34,11 +33,6 @@ import { NeighborhoodDataComponent } from './_bottomsheet/neighborhood-data/neig
     FormsModule
   ],
   providers: [
-/*    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiInterceptor,
-      multi: true
-    }*/
   ],
   bootstrap: [AppComponent]
 })
