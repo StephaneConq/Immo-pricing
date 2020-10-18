@@ -47,6 +47,7 @@ export class PricingDataComponent implements OnInit {
   }
 
   close() {
+    document.getElementById('search-input').blur();
     this.raised ? this.raised = false : this._bottomSheetRef.dismiss(this.data.action);
   }
 

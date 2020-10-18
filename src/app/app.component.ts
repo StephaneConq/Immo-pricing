@@ -67,6 +67,7 @@ export class AppComponent implements OnInit {
 
 
   findResultsByAddress(option: Address | Place) {
+    document.getElementById('search-input').blur();
     this.bottomSheet.dismiss();
     this.polygons = [];
     this.bottomsheetIsOpened = false;
@@ -82,6 +83,7 @@ export class AppComponent implements OnInit {
   }
 
   loadPrices(localityId, option, localityTypeId) {
+    document.getElementById('search-input').blur();
     this.immoPricingService.getPrices(localityId).subscribe(async (data: PriceResult[]) => {
       if (data.length === 0) {
         return this.loadPricesAround(localityTypeId, localityId);
@@ -110,6 +112,7 @@ export class AppComponent implements OnInit {
   }
 
   async loadPricesAround(localityTypeId, localityId) {
+    document.getElementById('search-input').blur();
     await new Promise(resolve => {
       setTimeout(() => resolve(), 500);
     });
@@ -131,6 +134,7 @@ export class AppComponent implements OnInit {
   }
 
   async selectResult(res: PriceResult, option: Address | Place, action = BottomsheetCommand.CLOSE) {
+    document.getElementById('search-input').blur();
     this.searchComponent.searchResults = [];
     res.Label = res.Label.length === 0 ? option.Display : res.Label;
     const results = await this.mapsService.reverseGeocode(res.Label);
@@ -179,6 +183,7 @@ export class AppComponent implements OnInit {
   }
 
   selectPolygon(selectedRes: PriceResult) {
+    document.getElementById('search-input').blur();
     const polygon = this.polygons.find(p => p.data?.LocalityID === selectedRes.LocalityID);
     if (polygon) {
       polygon.options = {
@@ -189,6 +194,7 @@ export class AppComponent implements OnInit {
   }
 
   clickOnPolygon(polygon: Polygon) {
+    document.getElementById('search-input').blur();
     for (let i = 0; i < this.polygons.length; i++) {
       const tmp = {...this.polygons[i]};
       tmp.options = {};
