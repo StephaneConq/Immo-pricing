@@ -143,7 +143,6 @@ export class AppComponent implements OnInit {
         };
       }
     } else {
-      console.log('results', results);
       res.AddressComponent = this.buildAddressComponent(results[0]);
     }
     this.bottomsheetIsOpened = true;
@@ -200,7 +199,6 @@ export class AppComponent implements OnInit {
   }
 
   buildAddressComponent(geocodeResult: google.maps.GeocoderResult) {
-    console.log('geocodeResult', geocodeResult);
     return {
       postalCode: geocodeResult.address_components.find(c => c.types.indexOf('postal_code') > -1).long_name,
       city: geocodeResult.address_components.find(c => c.types.indexOf('locality') > -1).long_name,

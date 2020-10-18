@@ -49,6 +49,7 @@ export class SearchComponent implements OnInit {
   }
 
   selectResult(address: Address) {
+    document.getElementById('search-input').blur();
     this.searchResults = [];
     this.selectSearchOptionEvent.emit(address);
   }
